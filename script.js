@@ -1,4 +1,5 @@
 const validOptions = ["rock", "paper", "scissors"];
+
 function playRound(playerSelection, computerSelection) {
   if (!validOptions.includes(playerSelection)) {
     throw new Error(`Invalid choice: ${playerSelection}`);
@@ -75,3 +76,22 @@ function playGame(numGames, playerSelection) {
 playGame(100, "ROCK");
 playGame(100, "PAPER");
 playGame(100, "SCISSORS");
+
+document.addEventListener('DOMContentLoaded', () => {
+  let buttons = document.getElementsByClassName('rps');
+  console.log(buttons);
+  let rps = Array.prototype.filter.call(
+    buttons,
+    (button) => {
+      button.addEventListener("click", () => {
+        let playerSelection = button.id;
+        let computerSelection = getComputerChoice();
+        let result = playRound(playerSelection, computerSelection);
+        
+        let resultDiv = document.getElementById('results');
+        let newContent = document.createTextNode(result+'\n');
+        resultDiv.appendChild(newContent);
+      })
+    }
+  );
+});
